@@ -20,6 +20,8 @@ const caps = {
     accessKey: BROWSERSTACK_ACCESS_KEY,
     appiumVersion: "2.0.1",
     projectName: "Demo OTP Sim",
+    buildName: "BrowserStack Appium JEST",
+    sessionName: "Camera Image Injection and OTP Retrieval",
     debug: true,
     networkLogs: true,
     appProfiling: true,
