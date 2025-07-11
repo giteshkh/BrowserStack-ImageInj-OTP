@@ -4,8 +4,8 @@ const axios = require('axios');
 const FormData = require('form-data');
 jest.setTimeout(480000); // 480 seconds
 
-const BROWSERSTACK_USERNAME = "<Your BrowserStack Username>";
-const BROWSERSTACK_ACCESS_KEY = "<Your BrowserStack Access Key>";
+const BROWSERSTACK_USERNAME = "<BROWSERSTACK_USERNAME>"; // Replace with your BrowserStack username
+const BROWSERSTACK_ACCESS_KEY = "<BROWSERSTACK_ACCESS_KEY>"; // Replace with your BrowserStack access key
 
 const caps = {
   platformName: "android",
@@ -82,6 +82,24 @@ test('Camera image injection and capture', async () => {
       await driver.execute(`browserstack_executor: {"action": "annotate", "arguments": {"data": "ℹ️ ${label} not shown", "level": "info"}}`);
     }
   };
+
+  await clickIfVisible('android=new UiSelector().className("android.widget.Button").text("CAMERA1 API")', 'Camera 1 button');
+  await driver.pause(3000);
+  await clickIfVisible('android=new UiSelector().className("android.widget.Button").text("While using the app")', 'While using the app button');
+  await driver.pause(3000);
+  await clickIfVisible('android=new UiSelector().className("android.widget.Button").text("Allow")', 'Android permission Allow button');
+
+  await clickIfVisible('android=new UiSelector().className("android.widget.Button").text("CAPTURE")', 'Capture button');
+  await driver.pause(5000);
+
+  try {
+    const imageView = await driver.$('android=new UiSelector().className("android.widget.ImageView")');
+    const isVisible = await imageView.isDisplayed();
+    await driver.execute(`browserstack_executor: {"action": "annotate", "arguments": {"data": "${isVisible ? '✅' : 'ℹ️'} ImageView ${isVisible ? 'is displayed' : 'exists but not displayed'}", "level": "info"}}`);
+  } catch (_) {
+    await driver.execute(`browserstack_executor: {"action": "annotate", "arguments": {"data": "❌ ImageView not found", "level": "warn"}}`);
+  }
+  await driver.pause(5000);
 
   await clickIfVisible('android=new UiSelector().className("android.widget.Button").text("CAMERA1 API")', 'Camera 1 button');
   await driver.pause(3000);
