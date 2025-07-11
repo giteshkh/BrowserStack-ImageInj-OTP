@@ -1,0 +1,18 @@
+{
+  "name": "appium-browserstack-otp",
+  "version": "1.0.0",
+  "description": "Appium automation using BrowserStack Non SDK framework for OTP retrieval and Amazon login.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "appium": "^2.0.0",
+    "browserstack-local": "^1.4.8",
+    "webdriverio": "^7.30.1"
+  },
+  "devDependencies": {
+    "jest": "^30.0.4"
+  }
+}
